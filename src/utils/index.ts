@@ -1,1 +1,1 @@
-export { isPureObject } from "./is-pure-object";
+export { createDeepProxy } from "./create-deep-proxy";
