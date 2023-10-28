@@ -1,5 +1,5 @@
 {
-  "name": "deep-proxy",
+  "name": "@vay/deep-proxy",
   "version": "0.1.0",
   "type": "module",
   "scripts": {
