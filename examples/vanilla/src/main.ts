@@ -38,3 +38,5 @@ const proxifiedData = createDeepProxy(data, {
 proxifiedData.users[0].friends.push({ id: 3, name: "Jane" });
 proxifiedData.users.push({ id: 3, name: "Jane", friends: [], createdAt: new Date() });
 proxifiedData.usersCount = 3;
+
+console.log(data, proxifiedData);
