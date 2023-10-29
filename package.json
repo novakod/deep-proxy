@@ -9,9 +9,7 @@
   },
   "devDependencies": {
     "typescript": "^4.6.4",
-    "vite": "^3.2.3"
-  },
-  "dependencies": {
+    "vite": "^3.2.3",
     "vite-bundle-visualizer": "^0.10.0"
   }
 }
