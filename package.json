@@ -1,6 +1,14 @@
 {
   "name": "@novakod/deep-proxy",
   "version": "0.2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/novakod/deep-proxy.git"
+  },
+  "homepage": "https://github.com/novakod/deep-proxy#readme",
+  "author": {
+    "name": "Movsar Khalakhoev"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
