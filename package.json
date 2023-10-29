@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "visualize-build": "vite-bundle-visualizer"
+    "visualize-build": "vite-bundle-visualizer",
+    "publish": "npm publish --access public"
   },
   "devDependencies": {
     "typescript": "^5.2.2",
