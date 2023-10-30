@@ -136,5 +136,5 @@ export function createDeepProxy<Target extends object>(rootTarget: Target, handl
     return new Proxy(target, proxyHandler);
   }
 
-  return proxify(structuredClone(rootTarget));
+  return proxify(rootTarget);
 }
