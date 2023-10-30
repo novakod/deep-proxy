@@ -4,6 +4,8 @@ import { isProxifiedData } from "./is-proxified-data";
 import { isPureObject } from "./is-pure-object";
 
 export function createDeepProxy<Target extends object>(rootTarget: Target, handler: Prettify<DeepProxyHandler<Target>>) {
+  const proxiesMap = new WeakMap();
+
   function proxify<T extends object>(target: T, pathKeys: string[] = []): T {
     if (Array.isArray(target)) {
       for (let i = 0; i < target.length; i++) {
@@ -35,7 +37,9 @@ export function createDeepProxy<Target extends object>(rootTarget: Target, handl
     if (handler.apply) proxyHandler.apply = (target, thisArg, args) => handler.apply!({ rootTarget, nestedKeys: pathKeys, target, thisArg, args });
     if (handler.construct) proxyHandler.construct = (target, args, newTarget) => handler.construct!({ rootTarget, nestedKeys: pathKeys, target, args, newTarget });
 
-    return new Proxy(target, proxyHandler);
+    const proxy = new Proxy(target, proxyHandler);
+    proxiesMap.set(proxy, target);
+    return proxy;
   }
 
   return proxify(rootTarget);
