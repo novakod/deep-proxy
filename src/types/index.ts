@@ -4,20 +4,20 @@ export type Prettify<T> = {
 
 type GetOwnPropertyDescriptorHanderArgs<Target extends object> = {
   rootTarget: Target;
-  nestedKeys: (string | symbol)[];
+  path: (string | symbol)[];
   target: Record<string | symbol, any>;
   key: string | symbol;
 };
 
 type OwnKeysHandlerArgs<Target extends object> = {
   rootTarget: Target;
-  nestedKeys: (string | symbol)[];
+  path: (string | symbol)[];
   target: Record<string | symbol, any>;
 };
 
 type DefinePropertyHandlerArgs<Target extends object> = {
   rootTarget: Target;
-  nestedKeys: (string | symbol)[];
+  path: (string | symbol)[];
   target: Record<string | symbol, any>;
   key: string | symbol;
   descriptor: PropertyDescriptor;
@@ -25,27 +25,27 @@ type DefinePropertyHandlerArgs<Target extends object> = {
 
 type DeletePropertyHandlerArgs<Target extends object> = {
   rootTarget: Target;
-  nestedKeys: (string | symbol)[];
+  path: (string | symbol)[];
   target: Record<string | symbol, any>;
   key: string | symbol;
 };
 
 type PreventExtensionsHandlerArgs<Target extends object> = {
   rootTarget: Target;
-  nestedKeys: (string | symbol)[];
+  path: (string | symbol)[];
   target: Record<string | symbol, any>;
 };
 
 type HasHandlerArgs<Target extends object> = {
   rootTarget: Target;
-  nestedKeys: (string | symbol)[];
+  path: (string | symbol)[];
   target: Record<string | symbol, any>;
   key: string | symbol;
 };
 
 type GetHandlerArgs<Target extends object> = {
   rootTarget: Target;
-  nestedKeys: (string | symbol)[];
+  path: (string | symbol)[];
   target: Record<string | symbol, any>;
   key: string | symbol;
   reciever: any;
@@ -53,7 +53,7 @@ type GetHandlerArgs<Target extends object> = {
 
 type SetHandlerArgs<Target extends object> = {
   rootTarget: Target;
-  nestedKeys: (string | symbol)[];
+  path: (string | symbol)[];
   target: Record<string | symbol, any>;
   key: string | symbol;
   value: any;
@@ -62,7 +62,7 @@ type SetHandlerArgs<Target extends object> = {
 
 type ApplyHandlerArgs<Target extends object> = {
   rootTarget: Target;
-  nestedKeys: (string | symbol)[];
+  path: (string | symbol)[];
   target: Record<string | symbol, any>;
   thisArg: any;
   args: any[];
@@ -70,7 +70,7 @@ type ApplyHandlerArgs<Target extends object> = {
 
 type ConstructHandlerArgs<Target extends object> = {
   rootTarget: Target;
-  nestedKeys: (string | symbol)[];
+  path: (string | symbol)[];
   target: Record<string | symbol, any>;
   args: any[];
   newTarget: Function;
