@@ -24,12 +24,14 @@ const data = {
 };
 
 const proxifiedData = createDeepProxy(data, {
-  get({ key, target }) {
+  get({ key, target, path }) {
+    console.log("proxified get: ", key, path, target);
     return target[key];
   },
-  set({ key, nestedKeys, target, value }) {
+  set({ key, path, target, value }) {
+    console.log("proxified set", key, path, target, value);
+
     target[key] = value;
-    console.log("proxified set", key, nestedKeys, target, value);
 
     return true;
   },
