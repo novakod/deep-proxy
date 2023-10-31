@@ -2,15 +2,16 @@ import { DeepProxyHandler, Prettify } from "../types";
 import { isProxifiedData } from "./is-proxified-data";
 
 export function createDeepProxy<Target extends object>(rootTarget: Target, handler: Prettify<DeepProxyHandler<Target>>): Target {
-  const proxiesMap = new Map();
+  const targetToProxyMap = new WeakMap();
+  const proxyToTargetMap = new WeakMap();
 
   function proxify<Target extends object>(target: Target, path: (string | symbol)[] = []): Target {
     if (!isProxifiedData(target)) {
       return target;
     }
 
-    if (proxiesMap.has(target)) {
-      return proxiesMap.get(target);
+    if (targetToProxyMap.has(target)) {
+      return targetToProxyMap.get(target);
     }
 
     const proxyHandler: ProxyHandler<Target> = {
@@ -22,7 +23,7 @@ export function createDeepProxy<Target extends object>(rootTarget: Target, handl
       },
       set(target, key, value, reciever) {
         if (handler.set) {
-          return handler.set({ target, key, value, path: [...path, key], reciever, rootTarget });
+          return handler.set({ target, key, value: proxyToTargetMap.get(value) ?? value, path: [...path, key], reciever, rootTarget });
         }
 
         return Reflect.set(target, key, value, reciever);
@@ -47,7 +48,8 @@ export function createDeepProxy<Target extends object>(rootTarget: Target, handl
 
     const proxy = new Proxy(target, proxyHandler);
 
-    proxiesMap.set(target, proxy);
+    targetToProxyMap.set(target, proxy);
+    proxyToTargetMap.set(proxy, target);
 
     return proxy;
   }
