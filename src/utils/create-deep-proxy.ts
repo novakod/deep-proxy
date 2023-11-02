@@ -17,7 +17,9 @@ export function createDeepProxy<Target extends object>(rootTarget: Target, handl
     const proxyHandler: ProxyHandler<Target> = {
       get(target, key, reciever) {
         const newPath = [...path, key];
-        const value = handler.get ? handler.get({ target, key, path: newPath, reciever, rootTarget }) : Reflect.get(target, key, reciever);
+        let value = handler.get ? handler.get({ target, key, path: newPath, reciever, rootTarget }) : Reflect.get(target, key, reciever);
+
+        if (typeof value === "function") value = value.bind(target);
 
         return proxify(value, newPath);
       },
