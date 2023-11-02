@@ -1,6 +1,6 @@
 import { DeepProxyHandler, Prettify } from "../types";
 import { isProxifiedData } from "./is-proxified-data";
-import { isPureObject } from "./is-pure-object";
+import { isPureObject } from "@novakod/is-pure-object";
 
 export function createDeepProxy<Target extends object>(rootTarget: Target, handler: Prettify<DeepProxyHandler<Target>>): Target {
   const targetToProxyMap = new WeakMap();
