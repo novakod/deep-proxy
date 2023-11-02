@@ -1,6 +1,6 @@
 {
   "name": "@novakod/deep-proxy",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/novakod/deep-proxy.git"
@@ -20,5 +20,8 @@
     "typescript": "^5.2.2",
     "vite": "^4.5.0",
     "vite-bundle-visualizer": "^0.10.0"
+  },
+  "dependencies": {
+    "@novakod/is-pure-object": "^1.0.3"
   }
 }
