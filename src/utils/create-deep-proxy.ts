@@ -1,5 +1,6 @@
 import { DeepProxyHandler, Prettify } from "../types";
 import { isProxifiedData } from "./is-proxified-data";
+import { isPureObject } from "./is-pure-object";
 
 export function createDeepProxy<Target extends object>(rootTarget: Target, handler: Prettify<DeepProxyHandler<Target>>): Target {
   const targetToProxyMap = new WeakMap();
@@ -19,7 +20,9 @@ export function createDeepProxy<Target extends object>(rootTarget: Target, handl
         const newPath = [...path, key];
         let value = handler.get ? handler.get({ target, key, path: newPath, reciever, rootTarget }) : Reflect.get(target, key, reciever);
 
-        if (typeof value === "function") value = value.bind(target);
+        if (typeof value === "function" && !Array.isArray(target) && !isPureObject(target)) {
+          value = value.bind(target);
+        }
 
         return proxify(value, newPath);
       },
