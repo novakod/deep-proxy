@@ -1,6 +1,6 @@
 {
   "name": "@novakod/deep-proxy",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "main": "./index.ts",
   "repository": {
     "type": "git",
