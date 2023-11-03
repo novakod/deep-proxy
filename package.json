@@ -1,6 +1,6 @@
 {
   "name": "@novakod/deep-proxy",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "main": "./index.ts",
   "repository": {
     "type": "git",
@@ -24,6 +24,6 @@
     "vite-bundle-visualizer": "^0.10.0"
   },
   "dependencies": {
-    "@novakod/is-pure-object": "^1.0.3"
+    "@novakod/is-pure-object": "^1.0.4"
   }
 }
