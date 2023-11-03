@@ -1,6 +1,7 @@
 {
   "name": "@novakod/deep-proxy",
-  "version": "0.5.3",
+  "version": "0.5.4",
+  "main": "./index.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/novakod/deep-proxy.git"
@@ -9,6 +10,7 @@
   "author": {
     "name": "Movsar Khalakhoev"
   },
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
