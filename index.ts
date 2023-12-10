@@ -1,1 +1,1 @@
-export { createDeepProxy, isDeepProxy } from "./src/utils";
+export { createDeepProxy, isDeepProxy, unproxify } from "./src/utils";

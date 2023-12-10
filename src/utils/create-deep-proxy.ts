@@ -3,14 +3,18 @@ import { isProxifiedData } from "./is-proxified-data";
 import { isPureObject } from "@novakod/is-pure-object";
 
 let proxySymbol = Symbol("isProxy");
+const globalProxyToTargetMap = new WeakMap<object, object>();
 
 export function isDeepProxy(target: object) {
   return target[proxySymbol as keyof typeof target] || false;
 }
 
+export function unproxify<Target extends object>(proxy: Target): Target {
+  return globalProxyToTargetMap.get(proxy) as Target;
+}
+
 export function createDeepProxy<Target extends object>(rootTarget: Target, handler: Prettify<DeepProxyHandler<Target>>): Target {
   const targetToProxyMap = new WeakMap();
-  const proxyToTargetMap = new WeakMap();
 
   function proxify<Target extends object>(target: Target, path: (string | symbol)[] = []): Target {
     if (!isProxifiedData(target)) {
@@ -36,7 +40,7 @@ export function createDeepProxy<Target extends object>(rootTarget: Target, handl
       },
       set(target, key, value, reciever) {
         if (handler.set) {
-          return handler.set({ target, key, value: proxyToTargetMap.get(value) ?? value, path: [...path, key], reciever, rootTarget });
+          return handler.set({ target, key, value: globalProxyToTargetMap.get(value) ?? value, path: [...path, key], reciever, rootTarget });
         }
 
         return Reflect.set(target, key, value, reciever);
@@ -62,7 +66,7 @@ export function createDeepProxy<Target extends object>(rootTarget: Target, handl
     const proxy = new Proxy(target, proxyHandler);
 
     targetToProxyMap.set(target, proxy);
-    proxyToTargetMap.set(proxy, target);
+    globalProxyToTargetMap.set(proxy, target);
 
     return proxy;
   }
