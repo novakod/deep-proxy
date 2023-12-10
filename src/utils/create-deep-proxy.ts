@@ -2,17 +2,25 @@ import { DeepProxyHandler, Prettify } from "../types";
 import { isProxifiedData } from "./is-proxified-data";
 import { isPureObject } from "@novakod/is-pure-object";
 
-export function createDeepProxy<Target extends object>(rootTarget: Target, handler: Prettify<DeepProxyHandler<Target>>): Target {
-  const targetToProxyMap = new WeakMap();
-  const proxyToTargetMap = new WeakMap();
+const globalProxyToTargetMap = new WeakMap<object, object>();
+const globalTargetToProxyMap = new WeakMap<object, object>();
 
+export function isDeepProxy(target: object) {
+  return globalProxyToTargetMap.has(target);
+}
+
+export function unproxify<Target extends object>(proxy: Target): Target {
+  return globalProxyToTargetMap.get(proxy) as Target;
+}
+
+export function createDeepProxy<Target extends object>(rootTarget: Target, handler: Prettify<DeepProxyHandler<Target>>): Target {
   function proxify<Target extends object>(target: Target, path: (string | symbol)[] = []): Target {
     if (!isProxifiedData(target)) {
       return target;
     }
 
-    if (targetToProxyMap.has(target)) {
-      return targetToProxyMap.get(target);
+    if (globalTargetToProxyMap.has(target)) {
+      return globalTargetToProxyMap.get(target) as Target;
     }
 
     const proxyHandler: ProxyHandler<Target> = {
@@ -28,7 +36,7 @@ export function createDeepProxy<Target extends object>(rootTarget: Target, handl
       },
       set(target, key, value, reciever) {
         if (handler.set) {
-          return handler.set({ target, key, value: proxyToTargetMap.get(value) ?? value, path: [...path, key], reciever, rootTarget });
+          return handler.set({ target, key, value: globalProxyToTargetMap.get(value) ?? value, path: [...path, key], reciever, rootTarget });
         }
 
         return Reflect.set(target, key, value, reciever);
@@ -53,8 +61,8 @@ export function createDeepProxy<Target extends object>(rootTarget: Target, handl
 
     const proxy = new Proxy(target, proxyHandler);
 
-    targetToProxyMap.set(target, proxy);
-    proxyToTargetMap.set(proxy, target);
+    globalTargetToProxyMap.set(target, proxy);
+    globalProxyToTargetMap.set(proxy, target);
 
     return proxy;
   }
