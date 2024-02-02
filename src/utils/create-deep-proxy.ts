@@ -1,9 +1,9 @@
-import { DeepProxyHandler, Prettify } from "../types";
+import { DeepProxyHandler } from "../types";
 import { isProxifiedData } from "./is-proxified-data";
 import { isPureObject } from "@novakod/is-pure-object";
 
-const globalProxyToTargetMap = new WeakMap<object, object>();
-const globalTargetToProxyMap = new WeakMap<object, object>();
+export const globalProxyToTargetMap = new WeakMap<object, object>();
+export const globalTargetToProxyMap = new WeakMap<object, object>();
 
 export function isDeepProxy(target: object) {
   return globalProxyToTargetMap.has(target);
@@ -13,7 +13,7 @@ export function unproxify<Target extends object>(proxy: Target): Target {
   return globalProxyToTargetMap.get(proxy) as Target;
 }
 
-export function createDeepProxy<Target extends object>(rootTarget: Target, handler: Prettify<DeepProxyHandler<Target>>): Target {
+export function createDeepProxy<Target extends object>(rootTarget: Target, handler: DeepProxyHandler<Target>): Target {
   function proxify<Target extends object>(target: Target, path: (string | symbol)[] = []): Target {
     if (!isProxifiedData(target)) {
       return target;
