@@ -1,6 +1,6 @@
 {
   "name": "@novakod/deep-proxy",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/novakod/deep-proxy.git"
@@ -11,8 +11,8 @@
   },
   "license": "MIT",
   "type": "module",
-  "main": "./dist/deep-signals.umd.cjs",
-  "module": "./dist/deep-signals.js",
+  "main": "./dist/deep-proxy.umd.cjs",
+  "module": "./dist/deep-proxy.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -30,7 +30,7 @@
     "vite-bundle-visualizer": "^0.10.0",
     "vite-plugin-dts": "^3.7.2"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@novakod/is-pure-object": "^1.0.4"
   }
 }
