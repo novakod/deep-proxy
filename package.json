@@ -1,6 +1,6 @@
 {
   "name": "@novakod/deep-proxy",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/novakod/deep-proxy.git"
@@ -14,11 +14,15 @@
   "main": "./dist/deep-signals.umd.cjs",
   "module": "./dist/deep-signals.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "visualize-build": "vite-bundle-visualizer",
-    "release": "npm publish --access public"
+    "release": "npm publish --access public",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "typescript": "^5.2.2",
