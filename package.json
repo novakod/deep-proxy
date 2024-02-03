@@ -20,6 +20,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build-watch": "tsc && vite build --watch",
     "visualize-build": "vite-bundle-visualizer",
     "release": "npm publish --access public",
     "prepublishOnly": "npm run build"
