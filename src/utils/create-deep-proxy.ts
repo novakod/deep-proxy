@@ -73,7 +73,3 @@ export function createDeepProxy<Target extends object>(rootTarget: Target, handl
 
   return proxify(rootTarget);
 }
-
-export function test2() {
-  return "";
-}
