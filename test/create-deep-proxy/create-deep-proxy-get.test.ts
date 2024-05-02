@@ -98,7 +98,6 @@ test("Тестирование поля get функции createDeepProxy на 
   });
 
   proxifiedData.numbers.shift();
-  console.log(getSpyFn.mock.calls);
   // Из-за особенности работы метода shift у массива, который перезаписывает n-й элемент
   // массива n+1-ым и удаляет последний функция getSpyFn вызывается 14 раз:
   // 1 раз для прочления поля numbers, 1 раз для прочтения метода shift, 1 раз для прочтения поля length
